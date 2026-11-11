@@ -26,6 +26,12 @@ jobs:
           build-mount-path: '/var/lib/docker/'
           overprovision-lvm: 'true'
 
+      - name: Restore Docker temp dir
+        run: |
+          sudo mkdir -p /var/lib/docker/tmp
+          sudo systemctl restart docker
+          docker info >/dev/null
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
